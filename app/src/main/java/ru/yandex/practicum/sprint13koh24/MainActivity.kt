@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
@@ -101,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                             )
                         }
                         cartItemsAdapter.setItems(cartItems)
+                        binding.cartEmptyTitle.isGone = cartItems.isNotEmpty()
                         it.copy(count = 1)
                     } else {
                         it
@@ -121,12 +123,14 @@ class MainActivity : AppCompatActivity() {
             onRemoveCountClickListener = OnRemoveCountClickListener { item ->
                 catalogItems = catalogItems.map {
                     if (it.id == item.id) {
-                        it.copy(count = (it.count ?: 0) - 1)
+                        val count = if (it.count == 1) null else (it.count ?: 0) - 1
+                        it.copy(count = count)
                     } else {
                         it
                     }
                 }
                 catalogItemsAdapter.setItems(catalogItems)
+                binding.cartEmptyTitle.isGone = cartItems.isNotEmpty()
             }
         }
     }
@@ -159,6 +163,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 cartItemsAdapter.setItems(cartItems)
+                binding.cartEmptyTitle.isGone = cartItems.isNotEmpty()
             }
         }
     }
@@ -185,11 +190,13 @@ class MainActivity : AppCompatActivity() {
                 ScreenMode.CATALOG -> {
                     binding.catalogContainer.visibility = View.VISIBLE
                     binding.cartContainer.visibility = View.GONE
+                    binding.toolbar.setTitle(R.string.catalog_title)
                 }
 
                 ScreenMode.CART -> {
                     binding.catalogContainer.visibility = View.GONE
                     binding.cartContainer.visibility = View.VISIBLE
+                    binding.toolbar.setTitle(R.string.cart_title)
                 }
             }
             currentScreenMode = newScreenMode
