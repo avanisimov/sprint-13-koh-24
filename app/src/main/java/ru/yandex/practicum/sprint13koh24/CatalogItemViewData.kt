@@ -39,8 +39,7 @@ class CatalogItemViewHolder(
             binding.addToCart.visibility = View.GONE
             binding.countContainer.visibility = View.VISIBLE
             binding.count.text = viewData.count.toString()
-        } else
-        {
+        } else {
             binding.addToCart.visibility = View.VISIBLE
             binding.countContainer.visibility = View.GONE
         }

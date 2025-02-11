@@ -123,7 +123,6 @@ class MainActivity : AppCompatActivity() {
             onRemoveCountClickListener = OnRemoveCountClickListener { item ->
                 catalogItems = catalogItems.map {
                     if (it.id == item.id) {
-
                         val count = if (it.count == 1) null else (it.count ?: 0) - 1
                         it.copy(count = count)
                     } else {
