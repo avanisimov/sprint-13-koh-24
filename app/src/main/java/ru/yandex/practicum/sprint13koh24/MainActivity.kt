@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
@@ -101,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                             )
                         }
                         cartItemsAdapter.setItems(cartItems)
+                        binding.cartEmptyTitle.isGone = cartItems.isNotEmpty()
                         it.copy(count = 1)
                     } else {
                         it
@@ -127,6 +129,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 catalogItemsAdapter.setItems(catalogItems)
+                binding.cartEmptyTitle.isGone = cartItems.isNotEmpty()
             }
         }
     }
@@ -159,6 +162,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 cartItemsAdapter.setItems(cartItems)
+                binding.cartEmptyTitle.isGone = cartItems.isNotEmpty()
             }
         }
     }
